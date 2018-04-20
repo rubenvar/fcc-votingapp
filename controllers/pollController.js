@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Poll = mongoose.model('Poll');
-const User = mongoose.model('User');
 
 exports.homepage = (req, res) => {
     // res.redirect('/polls');
@@ -37,6 +36,7 @@ exports.getPollBySlug = async (req, res, next) => {
     }
     res.render('poll', { poll, title: poll.name });
 };
+
 exports.countVote = async (req, res, next) => {
     const find = { options: { $elemMatch: { _id: req.body.chosenId } } };
     const update = { $inc: { total: 1, "options.$.votes": 1 } };

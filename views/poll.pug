@@ -2,6 +2,7 @@ extends layout
 
 block content
     .poll(data-pollid=`${poll._id}`)
+        //- pre= h.dump(poll)
         h1= title
         p Created by #[a(href=`/user/${poll.author._id}`) #{poll.author.name}] #{h.moment(poll.created).fromNow()}
         a(href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="Hey, I just voted in this poll:" data-hashtags="freeCodeCamp" data-show-count="false") Tweet
@@ -13,11 +14,5 @@ block content
                     span #{opt['option']}
         //- and here is the results chart
         p These are the results:
-        .results#results
-            each opt in poll.options
-                li #{opt.option} (#{opt.votes} votes)
-                //- - const width = opt.votes * 100 / poll.total
-                //- - const empty = width ? '' : 'empty'
-                //- .result(style=`width: ${width || 0}%` id=`${opt.option}` class=`${empty}`)
-                    //- span #{opt['option']} 
-                    //- span.vote (#{opt['votes']} votes)
+        .resulting-canvas
+            canvas(id="results-chart" width="400" height="100")
