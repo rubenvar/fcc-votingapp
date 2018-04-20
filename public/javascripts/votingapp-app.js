@@ -2,6 +2,7 @@ import '../sass/style.scss';
 
 import { $, $$ } from './modules/bling';
 import ajaxVote from './modules/vote';
+import addFormOption from './modules/addOption';
 import { ajaxDelete, ajaxConfirmDelete, ajaxCancelDelete } from './modules/delete';
 
 const voteForms = $$('form.vote');
@@ -15,3 +16,6 @@ deleteButtons.on('submit', ajaxDelete);
 
 const cancelDeleteButtons = $$('button.delete-cancel');
 cancelDeleteButtons.on('click', ajaxCancelDelete);
+
+const addOptionButton = $$('.add-option');
+addOptionButton.on('click', addFormOption);

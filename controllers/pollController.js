@@ -43,6 +43,7 @@ exports.countVote = async (req, res, next) => {
     const options = { new: true, runValidators: true };
     const result = await Poll.findOneAndUpdate(find, update, options).exec();
     console.log('voto añadido');
+    // TODO need to flash that vote is counted
     // should add the poll _id to the users db
     res.json(result);
     next();

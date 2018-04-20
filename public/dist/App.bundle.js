@@ -1880,6 +1880,10 @@ var _vote = __webpack_require__(11);
 
 var _vote2 = _interopRequireDefault(_vote);
 
+var _addOption = __webpack_require__(37);
+
+var _addOption2 = _interopRequireDefault(_addOption);
+
 var _delete = __webpack_require__(10);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -1895,6 +1899,34 @@ deleteButtons.on('submit', _delete.ajaxDelete);
 
 var cancelDeleteButtons = (0, _bling.$$)('button.delete-cancel');
 cancelDeleteButtons.on('click', _delete.ajaxCancelDelete);
+
+var addOptionButton = (0, _bling.$$)('.add-option');
+addOptionButton.on('click', _addOption2.default);
+
+/***/ }),
+/* 31 */,
+/* 32 */,
+/* 33 */,
+/* 34 */,
+/* 35 */,
+/* 36 */,
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+function addFormOption() {
+    // TODO could make i more resilient
+    var i = (this.parentNode.childElementCount - 1) / 2 + 1;
+    var newFieldHTML = "<label for=\"option" + i + "\">Option " + i + "</label><input name=\"options[" + (i - 1) + "][option]\" required=\"required\" type=\"text\">";
+    this.insertAdjacentHTML("beforeBegin", newFieldHTML);
+}
+
+exports.default = addFormOption;
 
 /***/ })
 /******/ ]);

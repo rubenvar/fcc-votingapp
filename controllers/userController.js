@@ -53,11 +53,13 @@ exports.findAccountUser = async (req, res, next) => {
 };
 
 exports.checkVoted = async (req, res, next) => {
+    // TODO for now anon users can vote many times, fix this (HOW??):
     if (!req.user) {return next();}
+    // check if logged in has the poll stored (already voted)
     let isVoted = req.user.votes.some((vote) => {
         return vote.toString() === req.body.pollId;
     });
-
+    // if user voted, return, else keep going to count the vote and store it
     if (isVoted) {
         // TODO need to flash that already voted
         console.log('user already voted!');
