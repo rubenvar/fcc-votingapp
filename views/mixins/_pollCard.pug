@@ -1,0 +1,6 @@
+mixin pollCard(poll = {})
+    .poll-card
+        h2
+            a(href=`/polls/${poll.slug}`) #{poll.name}
+        .poll-details
+            p Created by #[a(href=`/user/${poll.author._id}`) #{poll.author.name}] #{h.moment(poll.created).fromNow()}

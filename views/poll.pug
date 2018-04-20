@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    .poll(data-pollid=`${poll._id}`)
+        h1= title
+        p Created by #[a(href=`/user/${poll.author._id}`) #{poll.author.name}] #{h.moment(poll.created).fromNow()}
+        p <span class="total-votes">#{poll.total}</span> votes so far
+        //- voting options
+        form.vote(method="POST" action=`/polls/${poll.slug}/vote/`)
+            each opt in poll.options
+                button(type="submit" name="chosen" value=`${opt['_id']}`)
+                    span #{opt['option']}
+        //- and here is the results chart
+        p These are the results:
+        .results#results
+            each opt in poll.options
+                - const width = opt.votes * 100 / poll.total
+                - const empty = width ? '' : 'empty'
+                .result(style=`width: ${width || 0}%` id=`${opt.option}` class=`${empty}`)
+                    span #{opt['option']} 
+                    span.vote (#{opt['votes']} votes)

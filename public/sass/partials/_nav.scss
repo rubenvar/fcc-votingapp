@@ -1,0 +1,110 @@
+.nav {
+  display: grid;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  background: $white;
+  &-section {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: stretch;
+    &-item {
+      &:hover, &-active {
+        border-bottom: 3px solid $purple;
+        color: $purple;
+      }
+      &:hover {
+        padding-bottom: 2px;
+      }
+      &-active:hover {
+        padding-bottom: 5px;
+      }
+    }
+  }
+  #menu {
+    justify-self: start;
+  }
+  #user {
+    justify-self: end;
+  }
+  a {
+    display: grid;
+    align-items: center;
+    padding: 5px 20px;
+  }
+  h1 {
+    padding: 0;
+    margin: 0;
+    font-size: 50px;
+    line-height: 1;
+    text-transform: none;
+  }
+}
+
+// me falta meter las mías
+// @media all and (max-width: 1200px) {
+//   .nav {
+//     &__link {
+//       padding-left: 1rem;
+//       padding-right: 1rem;
+//       svg {
+//         width: 30px;
+//       }
+//       &--logo {
+//         svg {
+//           width: 100px;
+//         }
+//       }
+//     }
+//   }
+// }
+
+// @media all and (max-width: 900px) {
+//   .nav {
+//     flex-wrap:wrap;
+//     &__section {
+//       order: 1;
+//       &--search {
+//         border-top: 1px solid rgba(255,255,255,0.1);
+//         order: 2;
+//         width: 100%;
+//       }
+//     }
+//   }
+// }
+
+// @media all and (max-width: 650px) {
+//   .nav {
+//     &__section {
+//       width: 100%;
+//       &--user {
+//         order: -1;
+//         border-bottom: 1px solid rgba(255,255,255,0.1);
+//         .avatar {
+//           min-width: 20px;
+//           height: 20px;
+//         }
+//         svg {
+//           display: none;
+//         }
+//       }
+//     }
+//     &__item {
+//       width: 33.333333%;
+//     }
+//     &__link {
+//       width: 100%;
+//       svg {
+//         // width: 5px;
+//         max-width: 100%;
+//       }
+//       &--logo {
+//         svg {
+//           width:100%;
+//         }
+//       }
+//     }
+//   }
+// }

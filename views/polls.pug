@@ -1,0 +1,9 @@
+extends layout
+
+include mixins/_pollCard
+
+block content
+    h1= title
+    .polls
+        each poll in polls
+            +pollCard(poll)

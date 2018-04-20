@@ -1,0 +1,20 @@
+mixin pollCardUser(poll = {})
+    .poll-card(id=`poll-id-${poll._id}`)
+        h2
+            a(href=`/polls/${poll.slug}`) #{poll.name}
+        p Created #{h.moment(poll.created).fromNow()}
+        p Results (from a total of #{poll.total} votes):
+        ol
+            each opt in poll.options
+                li #{opt.option} (#{opt.votes})
+        .delete-form.delete-conf
+            p You can delete this poll
+            button.delete-first(type="submit" value=`${poll._id}`)
+                p Click to delete it
+        .delete-form.delete-main.hidden
+            p Are you sure?
+            button.delete-cancel(type="submit" name="cancel" value=`${poll._id}`)
+                p Uh, no. Undo it!
+            form.delete(action=`/user/${user._id}/delete` method="POST")
+                button(type="submit" name="delete" value=`${poll._id}`)
+                    p Yes, delete!

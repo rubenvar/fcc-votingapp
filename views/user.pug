@@ -1,0 +1,24 @@
+extends layout
+
+include mixins/_pollCard
+include mixins/_pollCardUser
+
+block content
+    h1 #{title}'s account
+    if user && user._id.equals(slugId)
+        p This is your account
+    if user
+        p This is your current id <strong>#{user._id}</strong> and name <strong>#{user.name}</strong>
+    h2 #{title}'s polls:
+    .polls
+        if user && user._id.equals(slugId)
+            each poll in polls
+                +pollCardUser(poll)
+        else
+            each poll in polls
+                +pollCard(poll)
+    p Here you will see two things when you are logged in:
+    ol
+        li The polls you created
+        li The votes you made in whic polls (need to get the Vote Object ID + the Poll Id from each vote the user gives)
+        li The options to change your name and email (maybe)

@@ -1,0 +1,23 @@
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid $yellow;
+  &.input {
+    &--error {
+      border-color: red;
+    }
+  }
+}
+
+label {
+  padding: 10px 0;
+  display: block;
+}
+
+.form {
+  background: white;
+  padding: 2rem;
+  & + .form {
+    margin-top: 4rem;
+  }
+}
