@@ -6,9 +6,9 @@
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -1035,8 +1035,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // FUNCIONA A MEDIAS, FALLA SI LA ID TIENE ESPACIOS O ES NUM O ALGO ASI, MIERDA!
 function ajaxVote(e) {
     e.preventDefault();
+    // check if the logged-in user already voted
+    // :( server side
+    // const userVotes = user
+    // get poll and option ids to store the vote
     var pollId = this.parentNode.dataset.pollid;
     var chosenId = e.explicitOriginalTarget.value;
+    // start the POST action
     _axios2.default.post(this.action, { chosenId: chosenId, pollId: pollId }).then(function (res) {
         var result = res.data.options.filter(function (obj) {
             return obj._id === chosenId;

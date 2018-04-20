@@ -14,8 +14,9 @@ block content
         p These are the results:
         .results#results
             each opt in poll.options
-                - const width = opt.votes * 100 / poll.total
-                - const empty = width ? '' : 'empty'
-                .result(style=`width: ${width || 0}%` id=`${opt.option}` class=`${empty}`)
-                    span #{opt['option']} 
-                    span.vote (#{opt['votes']} votes)
+                li #{opt.option} (#{opt.votes} votes)
+                //- - const width = opt.votes * 100 / poll.total
+                //- - const empty = width ? '' : 'empty'
+                //- .result(style=`width: ${width || 0}%` id=`${opt.option}` class=`${empty}`)
+                    //- span #{opt['option']} 
+                    //- span.vote (#{opt['votes']} votes)

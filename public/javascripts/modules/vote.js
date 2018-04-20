@@ -4,8 +4,13 @@ import { $, $$ } from './bling';
 // FUNCIONA A MEDIAS, FALLA SI LA ID TIENE ESPACIOS O ES NUM O ALGO ASI, MIERDA!
 function ajaxVote(e) {
     e.preventDefault();
+    // check if the logged-in user already voted
+    // :( server side
+    // const userVotes = user
+    // get poll and option ids to store the vote
     const pollId = this.parentNode.dataset.pollid;
     const chosenId = e.explicitOriginalTarget.value;
+    // start the POST action
     axios
         .post(this.action, { chosenId, pollId })
         .then(res => {

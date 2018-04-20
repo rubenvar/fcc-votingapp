@@ -14,7 +14,7 @@ router.post('/new/poll', catchErrors(pollController.createPoll));
 router.get('/polls', catchErrors(pollController.getPolls));
 
 router.get('/polls/:slug', catchErrors(pollController.getPollBySlug));
-router.post('/polls/:slug/vote', catchErrors(pollController.countVote), catchErrors(userController.storePoll));
+router.post('/polls/:slug/vote', catchErrors(userController.checkVoted), catchErrors(pollController.countVote), catchErrors(userController.storePoll));
 
 router.get('/login', userController.loginForm);
 router.post('/login', authController.login);

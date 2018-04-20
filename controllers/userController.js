@@ -52,11 +52,29 @@ exports.findAccountUser = async (req, res, next) => {
     next();
 };
 
+exports.checkVoted = async (req, res, next) => {
+    if (!req.user) {return next();}
+    let isVoted = req.user.votes.some((vote) => {
+        return vote.toString() === req.body.pollId;
+    });
+
+    if (isVoted) {
+        // TODO need to flash that already voted
+        console.log('user already voted!');
+        return;
+    } else {
+        console.log('different');
+        next();
+    }
+};
+
 exports.storePoll = async (req, res) => {
     console.log('works only if logged in');
-    const user = await User.findByIdAndUpdate(
-        req.user._id,
-        { $addToSet: { votes: req.body.pollId } },
-        { new: true }
-    );
+    if (req.user) {
+        const user = await User.findByIdAndUpdate(
+            req.user._id,
+            { $addToSet: { votes: req.body.pollId } },
+            { new: true }
+        );
+    }
 };
