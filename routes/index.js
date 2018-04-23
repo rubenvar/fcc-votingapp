@@ -13,8 +13,20 @@ router.post('/new/poll', catchErrors(pollController.createPoll));
 
 router.get('/polls', catchErrors(pollController.getPolls));
 
-router.get('/polls/:slug', catchErrors(pollController.getPollBySlug));
-router.post('/polls/:slug/vote', catchErrors(userController.checkVoted), catchErrors(pollController.countVote), catchErrors(userController.storePoll));
+router.get('/polls/:slug',
+    catchErrors(pollController.getPollBySlug),
+    userController.checkVotedBefore,
+    pollController.renderPoll
+);
+router.post('/polls/:slug/vote',
+    userController.checkVoted,
+    catchErrors(pollController.countVote),
+    catchErrors(userController.storePoll)
+);
+router.post('/polls/:slug/new',
+    catchErrors(pollController.getPollBySlug),
+    catchErrors(pollController.addNewOption)
+);
 
 router.get('/login', userController.loginForm);
 router.post('/login', authController.login);

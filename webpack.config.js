@@ -45,6 +45,8 @@ const styles = {
 const uglify = new webpack.optimize.UglifyJsPlugin({ // eslint-disable-line
   compress: { warnings: false }
 });
+const minMoment = new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/)
+    // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
 
 // OK - now it's time to put it all together
 const config = {
@@ -71,6 +73,7 @@ const config = {
   // finally we pass it an array of our plugins - uncomment if you want to uglify
   // plugins: [uglify]
   plugins: [
+    minMoment,
     // here is where we tell it to output our css to a separate file
     new ExtractTextPlugin('style.css'),
   ]

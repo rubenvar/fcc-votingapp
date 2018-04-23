@@ -1,5 +1,6 @@
 import axios from 'axios';
-import Chart from 'chart.js';
+// import Chart from 'chart.js';
+import loadChart from './loadChart';
 import { $, $$ } from './bling';
 
 function ajaxVote(e) {
@@ -15,6 +16,7 @@ function ajaxVote(e) {
     axios
         .post(this.action, { chosenId, pollId })
         .then(res => {
+            console.log(res.data);
             // change the value in total
             $('.total-votes').textContent = res.data.total;
             // get the values for the chart
@@ -23,25 +25,7 @@ function ajaxVote(e) {
                 data.push(opt.votes);
             });
             // display the chart
-            const myChart = new Chart(canvas, {
-                type: 'pie',
-                data: {
-                    labels,
-                    datasets: [{
-                        label: '# of Votes',
-                        data,
-                        backgroundColor: [],
-                        borderColor: [],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    legend: {
-                        display: true,
-                        position: 'right'
-                    }
-                }
-            });
+            loadChart(canvas, labels, data);
         })
         .catch(console.error);
 }

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
+const Poll = mongoose.model('Poll');
 const promisify = require('es6-promisify');
 
 exports.loginForm = (req, res) => {
@@ -52,9 +53,26 @@ exports.findAccountUser = async (req, res, next) => {
     next();
 };
 
+exports.checkVotedBefore = (req, res, next) => {
+    let voted = false;
+    if (req.user) {
+        voted = req.user.votes.some(vote => {
+            return vote.toString() === res.locals.poll._id.toString();
+        });
+    }
+    res.locals.voted = voted;
+    next();
+};
+
 exports.checkVoted = async (req, res, next) => {
+    const poll = await Poll.find({ options: { $elemMatch: { _id: req.body.chosenId } } });
+    // res.locals.poll = poll;
+    // console.log(poll);
     // TODO for now anon users can vote many times, fix this (HOW??):
-    if (!req.user) {return next();}
+    if (!req.user) {
+        console.log('anon');
+        return next();
+    }
     // check if logged in has the poll stored (already voted)
     let isVoted = req.user.votes.some((vote) => {
         return vote.toString() === req.body.pollId;
@@ -63,15 +81,14 @@ exports.checkVoted = async (req, res, next) => {
     if (isVoted) {
         // TODO need to flash that already voted
         console.log('user already voted!');
-        return;
+        res.json(poll[0]);
     } else {
-        console.log('different');
+        console.log('different, so storing vote:');
         next();
     }
 };
 
 exports.storePoll = async (req, res) => {
-    console.log('works only if logged in');
     if (req.user) {
         const user = await User.findByIdAndUpdate(
             req.user._id,

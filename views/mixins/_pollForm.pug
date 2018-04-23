@@ -1,14 +1,12 @@
-include _addOption
-
 mixin pollForm(poll = {})
     form(action=`/new/poll/` method="POST")
         label(for="name") Name
         input(type="text" name="name" required)
         .options
-            label(for="option1") Option 1
+            label(for="options[0][option]") Option 1
             input(type="text" name="options[0][option]" required)
-            label(for="option2") Option 2
+            label(for="options[1][option]") Option 2
             input(type="text" name="options[1][option]" required)
-            +addOption()
+            p.add-option ➕ Add new option to the poll
         //- And the Submit Button
         input(type="submit" value="Save! ▶️" class="button")

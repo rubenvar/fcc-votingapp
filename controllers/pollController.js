@@ -31,10 +31,16 @@ exports.getPolls = async (req, res) => {
 exports.getPollBySlug = async (req, res, next) => {
     const poll = await Poll.findOne({ slug: req.params.slug }).populate('author');
     if (!poll) {
-        next();
-        return;
+        return next();
     }
-    res.render('poll', { poll, title: poll.name });
+    res.locals.poll = poll;
+    next();
+};
+
+exports.renderPoll = (req, res) => {
+    const poll = res.locals.poll;
+    const voted = res.locals.voted
+    res.render('poll', { poll, title: poll.name, voted });
 };
 
 exports.countVote = async (req, res, next) => {
@@ -60,4 +66,20 @@ exports.deletePoll = async (req, res) => {
     const pollToDelete = await Poll.find({ _id: req.body.pollIdToDelete }).remove().exec();
     console.log('deleted this poll ' + req.body.pollIdToDelete + '!');
     res.json(pollToDelete);
-}
+};
+
+exports.addNewOption = async (req, res) => {
+    const poll = res.locals.poll;
+    const option = req.body.option;
+    const obj = {
+        option,
+        votes: 0
+    };
+    const updatedPoll = await Poll.findOneAndUpdate(
+        { _id: poll._id },
+        { $push: { options: obj } },
+        { new: true, runValidators: true }
+    );
+    //TODO arreglar que funcione al meter más de una
+    res.send(`${poll.slug}`);
+};

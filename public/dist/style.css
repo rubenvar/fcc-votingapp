@@ -635,6 +635,9 @@ label {
   .poll .results .result.empty {
     display: none; }
 
+.poll form.store-option-form.hidden {
+  display: none; }
+
 .hide {
   text-indent: -999999px;
   font-size: 0; }
