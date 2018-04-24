@@ -8,7 +8,7 @@ const pollSchema = new Schema({
     name: {
         type: String,
         trim: true,
-        required: 'Enter a name for this poll'
+        required: 'Supply a name for this poll'
     },
     slug: String,
     created: {
@@ -17,7 +17,10 @@ const pollSchema = new Schema({
     },
     options: [
         {
-            option: String,
+            option: {
+                type: String,
+                required: 'Supply the option'
+            },
             votes: Number
         }
     ],

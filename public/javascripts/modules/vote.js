@@ -16,9 +16,10 @@ function ajaxVote(e) {
     axios
         .post(this.action, { chosenId, pollId })
         .then(res => {
-            console.log(res.data);
             // change the value in total
             $('.total-votes').textContent = res.data.total;
+            // hide the voting buttons
+            this.parentNode.classList.add('hide-vote');
             // get the values for the chart
             res.data.options.forEach(opt => {
                 labels.push(opt.option);

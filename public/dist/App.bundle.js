@@ -5826,6 +5826,15 @@ exports.$$ = $$;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+module.exports = __webpack_require__(33);
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(3);
@@ -5915,15 +5924,6 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)))
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = __webpack_require__(33);
 
 /***/ }),
 /* 12 */
@@ -8121,7 +8121,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ajaxCancelDelete = exports.ajaxConfirmDelete = exports.ajaxDelete = undefined;
 
-var _axios = __webpack_require__(11);
+var _axios = __webpack_require__(10);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -8181,31 +8181,33 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _axios = __webpack_require__(11);
+var _axios = __webpack_require__(10);
 
 var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function addNewOptionInPoll() {
-    var newFieldHTML = '<form method="POST" action="' + window.location.href + '/new" class="store-option-form"><label for="newOption"></label><input type="text" name="newOption" required /><input type="submit" value="Add Option" /></form>';
+    var newFieldHTML = '<form method="POST" action="' + window.location.href + '/new" class="store-option-form"><label for="option">New Option:</label><input type="text" name="option" required /><input type="submit" value="Add Option" /></form>';
     this.insertAdjacentHTML("beforeBegin", newFieldHTML);
-    var casa = document.querySelector('.store-option-form');
-    casa.addEventListener('submit', storeNewOption);
+    this.classList.add('hidden');
+    // const casa = document.querySelector('.store-option-form');
+    // casa.addEventListener('submit', storeNewOption);
 }
 
-function storeNewOption(e) {
-    var _this = this;
-
-    e.preventDefault();
-    var option = this.newOption.value;
-    _axios2.default.post(this.action, { option: option }).then(function () {
-        // TODO more resilient + work when adding more than one
-        _this.classList.add('hidden');
-        console.log(_this);
-        console.log(e);
-    }).catch(console.error);
-}
+// function storeNewOption(e) {
+//     e.preventDefault();
+//     const option = this.newOption.value;
+//     axios
+//         .post(this.action, { option })
+//         .then(() => {
+//             // TODO more resilient + work when adding more than one
+//             this.classList.add('hidden');
+//             console.log(this);
+//             console.log(e)
+//         })
+//         .catch(console.error);
+// }
 
 exports.default = addNewOptionInPoll;
 
@@ -8220,7 +8222,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _axios = __webpack_require__(11);
+var _axios = __webpack_require__(10);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -8234,6 +8236,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // import Chart from 'chart.js';
 function ajaxVote(e) {
+    var _this = this;
+
     e.preventDefault();
     var canvas = (0, _bling.$)('#results-chart').getContext('2d');
     var labels = [],
@@ -8245,9 +8249,10 @@ function ajaxVote(e) {
     var chosenId = e.explicitOriginalTarget.value;
     // start the POST action
     _axios2.default.post(this.action, { chosenId: chosenId, pollId: pollId }).then(function (res) {
-        console.log(res.data);
         // change the value in total
         (0, _bling.$)('.total-votes').textContent = res.data.total;
+        // hide the voting buttons
+        _this.parentNode.classList.add('hide-vote');
         // get the values for the chart
         res.data.options.forEach(function (opt) {
             labels.push(opt.option);
@@ -8276,7 +8281,7 @@ exports.default = ajaxVote;
 var utils = __webpack_require__(3);
 var bind = __webpack_require__(16);
 var Axios = __webpack_require__(35);
-var defaults = __webpack_require__(10);
+var defaults = __webpack_require__(11);
 
 /**
  * Create an instance of Axios
@@ -8394,7 +8399,7 @@ module.exports = CancelToken;
 "use strict";
 
 
-var defaults = __webpack_require__(10);
+var defaults = __webpack_require__(11);
 var utils = __webpack_require__(3);
 var InterceptorManager = __webpack_require__(36);
 var dispatchRequest = __webpack_require__(37);
@@ -8546,7 +8551,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(3);
 var transformData = __webpack_require__(40);
 var isCancel = __webpack_require__(14);
-var defaults = __webpack_require__(10);
+var defaults = __webpack_require__(11);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.

@@ -24,7 +24,7 @@ exports.createPoll = async (req, res) => {
 
 exports.getPolls = async (req, res) => {
     // query db for all polls
-    const polls = await Poll.find().populate('author');
+    const polls = await Poll.find().sort({ created: -1 }).populate('author');
     res.render('polls', { title: 'All the Polls', polls });
 };
 
@@ -39,8 +39,15 @@ exports.getPollBySlug = async (req, res, next) => {
 
 exports.renderPoll = (req, res) => {
     const poll = res.locals.poll;
-    const voted = res.locals.voted
-    res.render('poll', { poll, title: poll.name, voted });
+    const voted = res.locals.voted;
+    
+    const labels = [], data = [];
+    poll.options.forEach(opt=> {
+        labels.push(opt.option);
+        data.push(opt.votes);
+    });
+
+    res.render('poll', { poll, title: poll.name, voted, labels, data });
 };
 
 exports.countVote = async (req, res, next) => {
@@ -81,5 +88,5 @@ exports.addNewOption = async (req, res) => {
         { new: true, runValidators: true }
     );
     //TODO arreglar que funcione al meter más de una
-    res.send(`${poll.slug}`);
+    res.redirect('back');
 };

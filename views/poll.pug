@@ -11,19 +11,51 @@ block content
         p <span class="total-votes">#{poll.total}</span> votes so far
         //- voting options
         if user && voted
-            p You already voted on this poll, sorry! Check the results below 👇
+            p You already voted on this poll! Check the results below 👇
         if !user || user && !voted
-            p You can vote here:
-            form.vote(method="POST" action=`/polls/${poll.slug}/vote/`)
+            p.hide-voted You can vote here:
+            form.vote.hide-voted(method="POST" action=`/polls/${poll.slug}/vote/`)
                 each opt in poll.options
                     button(type="submit" name="chosen" value=`${opt['_id']}`)
                         span #{opt['option']}
             if user
-                .new-option-cont
+                .new-option-cont.hide-voted
                     button.new-option(type="submit" name="moreOptions")
                         p Add new option
-        //- results
-        p These are the results:
+
         .resulting-canvas
             canvas(id="results-chart" width="400" height="100")
-            p CHART SHOULD LOAD HERE AUTO IF YOU HAVE ALREADY VOTED BEFORE
+
+        pre= h.dump(labels)
+        pre= h.dump(data)
+    
+    if user && voted
+        script.
+            labelString="#{labels}"
+            dataString="#{data}"
+            window.onload = function() {
+                const labels = labelString.split(',');
+                const data = dataString.split(',').map(str => {
+                    return Number(str);
+                });
+                var ctx = document.getElementById("results-chart").getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels,
+                        datasets: [{
+                            label: '# of Votes',
+                            data,
+                            backgroundColor: ['#f00', '#f0f', '#0f0', '#00f'],
+                            borderColor: ['#fff'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        legend: {
+                            display: true,
+                            position: 'right'
+                        }
+                    }
+                });
+            }

@@ -488,6 +488,13 @@ label {
   padding: 10px 0;
   display: block; }
 
+.vote-form.hidden,
+button.hidden {
+  display: none; }
+
+.hide-vote .hide-voted {
+  display: none; }
+
 .form {
   background: white;
   padding: 2rem; }
@@ -665,11 +672,5 @@ pre.error {
   background: white;
   line-height: 3;
   white-space: pre-line; }
-
-footer {
-  padding: 20px 0;
-  text-align: center; }
-  footer p {
-    margin: 0; }
 
 /*# sourceMappingURL=style.css.map*/
