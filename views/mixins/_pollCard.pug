@@ -1,6 +1,12 @@
 mixin pollCard(poll = {})
-    .poll-card
-        h2
-            a(href=`/polls/${poll.slug}`) #{poll.name}
-        .poll-details
-            p Created by #[a(href=`/user/${poll.author._id}`) #{poll.author.name}] #{h.moment(poll.created).fromNow()}
+  .poll-card
+    .poll-title
+      h2
+        a(href=`/polls/${poll.slug}`) #{poll.name}
+      p.created Created by #[a(href=`/user/${poll.author._id}`) #{poll.author.name}] #{h.moment(poll.created).fromNow()}
+    .poll-details
+      p Available options:
+      ul
+        each opt in poll.options
+          li #{opt.option}
+      a.button(href=`/polls/${poll.slug}`) 📨 Vote now

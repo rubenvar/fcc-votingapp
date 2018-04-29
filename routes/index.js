@@ -19,7 +19,7 @@ router.get('/polls/:slug',
     pollController.renderPoll
 );
 router.post('/polls/:slug/vote',
-    userController.checkVoted,
+    catchErrors(userController.checkVoted),
     catchErrors(pollController.countVote),
     catchErrors(userController.storePoll)
 );

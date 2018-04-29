@@ -3,5 +3,7 @@ extends layout
 include mixins/_loginForm
 
 block content
-    h1= title
-    +loginForm()
+  h1= title
+  +loginForm()
+  p Not a user yet? 
+    a(href="/register") Register here

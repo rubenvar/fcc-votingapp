@@ -454,7 +454,7 @@ h1 {
 
 h2 {
   font-size: 36px;
-  margin-bottom: 20px; }
+  margin: 0 0 20px; }
 
 h3 {
   font-size: 30px;
@@ -464,9 +464,11 @@ a {
   text-decoration: none;
   color: #303030; }
 
-p a {
+p a,
+h2 a {
   color: #827cd2; }
-  p a:hover {
+  p a:hover,
+  h2 a:hover {
     color: #303030; }
 
 p {
@@ -480,13 +482,17 @@ nav {
 input, textarea {
   width: 100%;
   padding: 10px;
-  border: 1px solid #FFC40E; }
-  input.input--error, textarea.input--error {
-    border-color: red; }
+  margin-bottom: 20px;
+  border: 1px solid #827cd2;
+  border-radius: 10px; }
+  input:focus, input:active, textarea:focus, textarea:active {
+    box-shadow: 0 0 2px #827cd2 inset; }
 
 label {
-  padding: 10px 0;
-  display: block; }
+  padding: 0;
+  margin-bottom: 5px;
+  display: block;
+  font-weight: 700; }
 
 .vote-form.hidden,
 button.hidden {
@@ -495,11 +501,47 @@ button.hidden {
 .hide-vote .hide-voted {
   display: none; }
 
-.form {
-  background: white;
-  padding: 2rem; }
-  .form + .form {
-    margin-top: 4rem; }
+button, input, optgroup, select, textarea {
+  font-family: 'Comfortaa', cursive; }
+
+button,
+.button,
+input[type="submit"] {
+  border-radius: 10px;
+  padding: 15px 25px;
+  margin: 0 0 20px 0;
+  line-height: 1.2;
+  box-shadow: none;
+  border: none;
+  background-color: #827cd2;
+  color: #fff;
+  cursor: pointer; }
+  button p,
+  .button p,
+  input[type="submit"] p {
+    margin: 0; }
+  button.sec,
+  .button.sec,
+  input[type="submit"].sec {
+    background-color: #ddd;
+    color: #303030; }
+    button.sec:hover,
+    .button.sec:hover,
+    input[type="submit"].sec:hover {
+      background-color: #eee; }
+  button:hover,
+  .button:hover,
+  input[type="submit"]:hover {
+    background-color: #9c96ec; }
+
+a.button {
+  display: block;
+  text-align: center; }
+
+p.add-option {
+  cursor: pointer; }
+  p.add-option:hover {
+    color: #827cd2; }
 
 @keyframes slideIn {
   0% {
@@ -589,7 +631,7 @@ button.hidden {
     -ms-flex-align: center;
         align-items: center;
     padding: 5px 20px; }
-  .nav h1 {
+  .nav h2 {
     padding: 0;
     margin: 0;
     font-size: 50px;
@@ -604,10 +646,23 @@ button.hidden {
   grid-gap: 5px; }
 
 .poll-card {
-  border: 1px solid #827cd2;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 1fr auto;
+      grid-template-rows: 1fr auto;
+  border: 1px solid #ddd;
+  border-radius: 10px;
   padding: 10px;
   opacity: 1;
-  transition: all 1s; }
+  transition: all 0.5s; }
+  .poll-card h2 {
+    text-align: center; }
+    .poll-card h2 a {
+      color: #303030; }
+      .poll-card h2 a:hover {
+        color: #827cd2; }
+  .poll-card:hover {
+    border-color: #827cd2; }
   .poll-card.hidden {
     opacity: 0; }
   .poll-card.gone-forever {
@@ -615,9 +670,20 @@ button.hidden {
   .poll-card .delete-form.hidden {
     display: none; }
 
+p.created {
+  font-size: 15px;
+  color: #aaa; }
+
+.delete-form {
+  background-color: #eee;
+  border-radius: 10px;
+  text-align: center;
+  padding: 20px 10px 0; }
+
 .poll form {
   display: -ms-flexbox;
-  display: flex; }
+  display: flex;
+  margin: 40px 0; }
   .poll form button {
     -ms-flex: 1;
         flex: 1;
@@ -648,16 +714,6 @@ button.hidden {
 .hide {
   text-indent: -999999px;
   font-size: 0; }
-
-button, input, optgroup, select, textarea {
-  font-family: 'Comfortaa', cursive; }
-
-.button {
-  border: 0;
-  background: #FFC40E;
-  color: #303030;
-  font-family: 'Comfortaa', cursive;
-  font-weight: 600; }
 
 .avatar {
   min-width: 50px;

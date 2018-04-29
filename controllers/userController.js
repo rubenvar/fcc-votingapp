@@ -55,33 +55,42 @@ exports.findAccountUser = async (req, res, next) => {
 
 exports.checkVotedBefore = (req, res, next) => {
     let voted = false;
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     if (req.user) {
         voted = req.user.votes.some(vote => {
             return vote.toString() === res.locals.poll._id.toString();
         });
+    }
+    if (res.locals.poll.ips.indexOf(ip) > -1) {
+        voted = true;
     }
     res.locals.voted = voted;
     next();
 };
 
 exports.checkVoted = async (req, res, next) => {
-    const poll = await Poll.find({ options: { $elemMatch: { _id: req.body.chosenId } } });
-    // res.locals.poll = poll;
-    // console.log(poll);
+    const poll = await Poll.findOne({ options: { $elemMatch: { _id: req.body.chosenId } } });
+    let isVoted;
     // TODO for now anon users can vote many times, fix this (HOW??):
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    res.locals.ip = ip;
     if (!req.user) {
         console.log('anon');
-        return next();
+    } else {
+        console.log('known');
+        // check if logged in has the poll stored (already voted)
+        isVoted = req.user.votes.some((vote) => {
+            return vote.toString() === req.body.pollId;
+        });
     }
-    // check if logged in has the poll stored (already voted)
-    let isVoted = req.user.votes.some((vote) => {
-        return vote.toString() === req.body.pollId;
-    });
+    if (poll.ips.indexOf(ip) > -1) {
+        isVoted = true;
+    }
     // if user voted, return, else keep going to count the vote and store it
     if (isVoted) {
         // TODO need to flash that already voted
         console.log('user already voted!');
-        res.json(poll[0]);
+        res.json(poll);
     } else {
         console.log('different, so storing vote:');
         next();

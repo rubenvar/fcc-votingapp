@@ -7,13 +7,14 @@ block content
     h1 #{title}'s account
     if user && user._id.equals(slugId)
         p This is your account
-    if user
-        p This is your current id <strong>#{user._id}</strong> and name <strong>#{user.name}</strong>
     h2 #{title}'s polls:
-    .polls
-        if user && user._id.equals(slugId)
+    if user && user._id.equals(slugId)
+        p <strong>Everyone</strong> can see your polls. <strong>Only you</strong> can see your polls' results or delete the polls
+        .polls
             each poll in polls
                 +pollCardUser(poll)
-        else
+    else
+        p These are all the polls created by this user
+        .polls
             each poll in polls
                 +pollCard(poll)

@@ -1,12 +1,12 @@
 mixin pollForm(poll = {})
     form(action=`/new/poll/` method="POST")
-        label(for="name") Name
-        input(type="text" name="name" required)
+        label(for="name") Poll Name:
+        input(type="text" name="name" id="name" required placeholder="Best car color?")
         .options
-            label(for="options[0][option]") Option 1
-            input(type="text" name="options[0][option]" required)
-            label(for="options[1][option]") Option 2
-            input(type="text" name="options[1][option]" required)
-            p.add-option ➕ Add new option to the poll
+            label(for="options[0][option]") Option 1:
+            input(type="text" name="options[0][option]" id="options[0][option]" required placeholder="Red")
+            label(for="options[1][option]") Option 2:
+            input(type="text" name="options[1][option]" id="options[1][option]" required placeholder="Blue")
+            p.add-option ➕ Add a new option to the poll
         //- And the Submit Button
-        input(type="submit" value="Save! ▶️" class="button")
+        input(type="submit" value="💾 Save")

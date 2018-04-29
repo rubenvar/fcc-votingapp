@@ -7,7 +7,7 @@ exports.homepage = (req, res) => {
 };
 
 exports.addPoll = (req, res) => {
-    res.render('createPoll', { title: 'Add Poll' });
+    res.render('createPoll', { title: 'Add New Poll' });
 };
 
 exports.createPoll = async (req, res) => {
@@ -40,6 +40,7 @@ exports.getPollBySlug = async (req, res, next) => {
 exports.renderPoll = (req, res) => {
     const poll = res.locals.poll;
     const voted = res.locals.voted;
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;;
     
     const labels = [], data = [];
     poll.options.forEach(opt=> {
@@ -47,12 +48,16 @@ exports.renderPoll = (req, res) => {
         data.push(opt.votes);
     });
 
-    res.render('poll', { poll, title: poll.name, voted, labels, data });
+    res.render('poll', { poll, title: poll.name, voted, labels, data, ip });
 };
 
 exports.countVote = async (req, res, next) => {
+    const ip = res.locals.ip
     const find = { options: { $elemMatch: { _id: req.body.chosenId } } };
-    const update = { $inc: { total: 1, "options.$.votes": 1 } };
+    const update = {
+        $inc: { total: 1, "options.$.votes": 1 },
+        $push: { ips: ip }
+    };
     const options = { new: true, runValidators: true };
     const result = await Poll.findOneAndUpdate(find, update, options).exec();
     console.log('voto añadido');
@@ -77,7 +82,7 @@ exports.deletePoll = async (req, res) => {
 
 exports.addNewOption = async (req, res) => {
     const poll = res.locals.poll;
-    const option = req.body.option;
+    const option = req.body.newOption;
     const obj = {
         option,
         votes: 0
@@ -87,6 +92,5 @@ exports.addNewOption = async (req, res) => {
         { $push: { options: obj } },
         { new: true, runValidators: true }
     );
-    //TODO arreglar que funcione al meter más de una
     res.redirect('back');
 };

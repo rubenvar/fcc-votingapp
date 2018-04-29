@@ -1,35 +1,38 @@
 extends layout
 
 block content
-    if user
-        //- - const voted = user.votes.some(function(vote) { return vote.toString() === poll._id.toString() })
     .poll(data-pollid=`${poll._id}`)
         //- pre= h.dump(poll)
         h1= title
-        p Created by #[a(href=`/user/${poll.author._id}`) #{poll.author.name}] #{h.moment(poll.created).fromNow()}
+        p.created Created by #[a(href=`/user/${poll.author._id}`) #{poll.author.name}] #{h.moment(poll.created).fromNow()}
         a(href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="Hey, I just voted in this poll:" data-hashtags="freeCodeCamp" data-show-count="false") Tweet
         p <span class="total-votes">#{poll.total}</span> votes so far
         //- voting options
-        if user && voted
+        if voted
             p You already voted on this poll! Check the results below 👇
-        if !user || user && !voted
-            p.hide-voted You can vote here:
+        if !voted
+            p.hide-voted Vote here:
             form.vote.hide-voted(method="POST" action=`/polls/${poll.slug}/vote/`)
                 each opt in poll.options
                     button(type="submit" name="chosen" value=`${opt['_id']}`)
                         span #{opt['option']}
             if user
                 .new-option-cont.hide-voted
-                    button.new-option(type="submit" name="moreOptions")
-                        p Add new option
+                    button.new-option.sec(type="submit" name="moreOptions")
+                        p ➕ Or add a new option...
+            else
+                .new-option-cont.hide-voted
+                    a.button.sec(href="/login") 🔐 Or login/register to add a new option...
 
         .resulting-canvas
             canvas(id="results-chart" width="400" height="100")
 
         pre= h.dump(labels)
         pre= h.dump(data)
+        pre= h.dump(voted)
+        pre= h.dump(ip)
     
-    if user && voted
+    if voted
         script.
             labelString="#{labels}"
             dataString="#{data}"

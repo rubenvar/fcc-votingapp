@@ -19,7 +19,7 @@ html
                   span #{item.title}
             .nav-section#logo
               a.nav-section-logo(href="/")
-                h1 4Poll
+                h2 4Poll
             .nav-section#user
               if user
                 a.nav-section-item(href=`/user/${user._id}`, class=(currentPath.startsWith(`/user/${user._id}`) ? 'nav-section-item-active' : ''))

@@ -32,7 +32,10 @@ const pollSchema = new Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'User',
         required: 'You must supply an author'
-    }
+    },
+    ips: [{
+        type: String
+    }]
 });
 
 // create the slug before saving

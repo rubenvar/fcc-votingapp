@@ -1,21 +1,24 @@
 input, textarea {
   width: 100%;
   padding: 10px;
-  border: 1px solid $yellow;
-  &.input {
-    &--error {
-      border-color: red;
-    }
+  margin-bottom: 20px;
+  border: 1px solid $purple;
+  border-radius: $rad;
+  &:focus,
+  &:active {
+    box-shadow: 0 0 2px $purple inset;
   }
 }
 
 label {
-  padding: 10px 0;
+  padding: 0;
+  margin-bottom: 5px; 
   display: block;
+  font-weight: 700;
 }
 
 .vote-form,
-button{
+button {
   &.hidden {
     display: none;
   }
@@ -25,10 +28,46 @@ button{
   display: none;
 }
 
-.form {
-  background: white;
-  padding: 2rem;
-  & + .form {
-    margin-top: 4rem;
+
+button, input, optgroup, select, textarea {
+  font-family: 'Comfortaa', cursive;
+}
+
+button,
+.button,
+input[type="submit"] {
+  border-radius: $rad;
+  padding: 15px 25px;
+  margin: 0 0 20px 0;
+  line-height: 1.2;
+  box-shadow: none;
+  border: none;
+  background-color: $purple;
+  color: $white;
+  cursor: pointer;
+  p {
+    margin: 0;
+  }
+  &.sec{
+    background-color: $grey;
+    color: $black;
+    &:hover {
+      background-color: #eee
+    }
+  }
+  &:hover {
+    background-color: #9c96ec;
+  }
+}
+
+a.button {
+  display: block;
+  text-align: center;
+}
+
+p.add-option {
+  cursor: pointer;
+  &:hover {
+    color: $purple;
   }
 }
