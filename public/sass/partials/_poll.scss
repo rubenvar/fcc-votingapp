@@ -1,18 +1,20 @@
 .polls {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 5px;
+  grid-gap: 20px;
 }
 .poll-card {
   display: grid;
   grid-template-rows: 1fr auto;
-  border: 1px solid $grey;
-  border-radius: 10px;
+  grid-gap: 10px;
+  border-top: 3px solid $grey;
   padding: 10px;
   opacity: 1;
   transition: all 0.5s;
+  box-shadow: 0 1px 2px $grey;
   h2 {
-    text-align: center;
+    // text-align: center;
+    margin-bottom: 10px;
     a {
       color: $black;
       &:hover {
@@ -39,23 +41,36 @@
 p.created {
   font-size: 15px;
   color: #aaa;
+  margin-bottom: 10px;
 }
 
 .delete-form {
-  background-color: #eee;
-  border-radius: $rad;
+  background-color: #f7f7f7;
   text-align: center;
   padding: 20px 10px 0;
 }
 
 // Single Poll
 .poll {
+  .poll-title {
+    padding-bottom: 40px;
+    position: relative;
+    h1 {
+      margin-bottom: 10px;
+    }
+    .twitter-share-button {
+      position: absolute !important;
+      right: 0;
+      top: 10px;
+    }
+  }
   form {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
     margin: 40px 0;
     button {
-      flex: 1;
-      margin: 10px;
+      margin: 0;
       background-color: $purple;
       border: 3px solid $purple;
       padding: 15px;

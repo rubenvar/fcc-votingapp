@@ -5,7 +5,7 @@ mixin pollCard(poll = {})
         a(href=`/polls/${poll.slug}`) #{poll.name}
       p.created Created by #[a(href=`/user/${poll.author._id}`) #{poll.author.name}] #{h.moment(poll.created).fromNow()}
     .poll-details
-      p Available options:
+      //- p Available options:
       ul
         each opt in poll.options
           li #{opt.option}

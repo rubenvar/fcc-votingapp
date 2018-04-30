@@ -2,14 +2,14 @@ extends layout
 
 block content
     .poll(data-pollid=`${poll._id}`)
-        //- pre= h.dump(poll)
-        h1= title
-        p.created Created by #[a(href=`/user/${poll.author._id}`) #{poll.author.name}] #{h.moment(poll.created).fromNow()}
-        a(href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="Hey, I just voted in this poll:" data-hashtags="freeCodeCamp" data-show-count="false") Tweet
-        p <span class="total-votes">#{poll.total}</span> votes so far
-        //- voting options
+        .poll-title
+            h1= title
+            p.created Created by #[a(href=`/user/${poll.author._id}`) #{poll.author.name}] #{h.moment(poll.created).fromNow()}
+                if poll.total > 0
+                    | – <span class="total-votes">#{poll.total}</span> votes so far
+            a(href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="Hey, I just voted in this poll:" data-hashtags="freeCodeCamp" data-show-count="false") Tweet
         if voted
-            p You already voted on this poll! Check the results below 👇
+            p You already voted on this poll 🤷‍♂️ Check the results here 👇
         if !voted
             p.hide-voted Vote here:
             form.vote.hide-voted(method="POST" action=`/polls/${poll.slug}/vote/`)
@@ -27,10 +27,10 @@ block content
         .resulting-canvas
             canvas(id="results-chart" width="400" height="100")
 
-        pre= h.dump(labels)
-        pre= h.dump(data)
-        pre= h.dump(voted)
-        pre= h.dump(ip)
+        //- pre= h.dump(labels)
+        //- pre= h.dump(data)
+        //- pre= h.dump(voted)
+        //- pre= h.dump(ip)
     
     if voted
         script.
@@ -49,7 +49,7 @@ block content
                         datasets: [{
                             label: '# of Votes',
                             data,
-                            backgroundColor: ['#f00', '#f0f', '#0f0', '#00f'],
+                            backgroundColor: ['#c77cd2', '#7cd2d2', '#7cd289', '#d2947c', '#d0d27c', '#7c7dd2'],
                             borderColor: ['#fff'],
                             borderWidth: 1
                         }]

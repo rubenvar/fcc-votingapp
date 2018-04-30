@@ -8,7 +8,7 @@ function loadChart(canvas, labels, data) {
             datasets: [{
                 label: '# of Votes',
                 data,
-                backgroundColor: ['#f00', '#f0f', '#0f0', '#00f'],
+                backgroundColor: ['#c77cd2', '#7cd2d2', '#7cd289', '#d2947c', '#d0d27c', '#7c7dd2'],
                 borderColor: ['#fff'],
                 borderWidth: 1
             }]

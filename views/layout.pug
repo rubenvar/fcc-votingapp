@@ -3,7 +3,6 @@ html
   head
     title= `${title} | ${h.siteName}`
     link(rel='stylesheet', href='/dist/style.css')
-    //- link(rel='stylesheet', href='/styles/main.css')
     link(rel="shortcut icon" type="image/png" href="/images/icons/4p.png")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     link(href="https://fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet")
@@ -19,7 +18,7 @@ html
                   span #{item.title}
             .nav-section#logo
               a.nav-section-logo(href="/")
-                h2 4Poll
+                h2 voted
             .nav-section#user
               if user
                 a.nav-section-item(href=`/user/${user._id}`, class=(currentPath.startsWith(`/user/${user._id}`) ? 'nav-section-item-active' : ''))
@@ -50,4 +49,3 @@ html
     block scripts
       script(src="/dist/App.bundle.js")
       script(async src="https://platform.twitter.com/widgets.js" charset="utf-8")
-      //- script(src="chart.js")
