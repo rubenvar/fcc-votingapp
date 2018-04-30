@@ -12,7 +12,7 @@ exports.moment = require('moment');
 exports.dump = (obj) => JSON.stringify(obj, null, 2);
 
 // Some details about the site
-exports.siteName = `4Poll - A Voting App for freeCodeCamp`;
+exports.siteName = `voted, a Voting App for freeCodeCamp`;
 
 exports.menu = [
   { slug: '/polls', title: '📊 Polls', },

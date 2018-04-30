@@ -21,7 +21,6 @@ function ajaxDelete(e) {
 
 function ajaxConfirmDelete(e) {
     e.preventDefault();
-    console.log('yout want to delete poll' + this.value);
     this.parentNode.classList.add('hidden'); // hide the first delete form so we can ask for confirmation
     $('#poll-id-' + this.value).querySelector('.delete-main').classList.remove('hidden'); // show the confirmation ask
 };
@@ -33,11 +32,9 @@ function ajaxCancelDelete(e) {
 }
 
 function vanish(elem) {
-    console.log('vanishing the thing');
     elem.classList.add('hidden');
     setTimeout(() => {
         elem.classList.add('gone-forever');
-        console.log('the thing is gone');
     }, 800);
 }
 

@@ -10,7 +10,7 @@ exports.getPolls = async (req, res, next) => {
 
 exports.renderHome = (req, res) => {
     const polls = res.locals.polls;
-    res.render('home', { title: 'voted', polls });
+    res.render('home', { title: 'The voted app', polls });
 };
 
 exports.addPoll = (req, res) => {
@@ -46,7 +46,7 @@ exports.getPollBySlug = async (req, res, next) => {
 exports.renderPoll = (req, res) => {
     const poll = res.locals.poll;
     const voted = res.locals.voted;
-    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;;
+    const ip = req.headers['x-forwarded-for'].split(',')[0] || req.connection.remoteAddress;;
     
     const labels = [], data = [];
     poll.options.forEach(opt=> {
