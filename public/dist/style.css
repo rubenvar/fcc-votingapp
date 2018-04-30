@@ -552,9 +552,8 @@ p.add-option {
 
 .flash {
   background: white;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-  margin-bottom: 2rem;
-  padding: 2rem;
+  margin: 20px 0 0;
+  padding: 20px;
   position: relative;
   z-index: 1;
   border-radius: 3px;
@@ -566,14 +565,22 @@ p.add-option {
     animation-delay: 0.55s; }
     .flash + .flash + .flash {
       animation-delay: 0.6s; }
-  .flash__text {
+  .flash-text {
     -ms-flex: 1;
         flex: 1; }
-  .flash__remove {
+  .flash-remove {
     background: none;
     border: 0; }
-    .flash__remove:hover {
+    .flash-remove:hover {
       color: #FFC40E; }
+  .flash button {
+    padding: 0;
+    color: #827cd2;
+    background-color: #fff;
+    margin: 0; }
+    .flash button:hover {
+      background-color: #fff;
+      color: #303030; }
   .flash:after {
     content: '';
     display: block;
@@ -584,14 +591,13 @@ p.add-option {
     top: 8px;
     left: 8px;
     z-index: -1;
-    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.1);
     border-radius: 3px; }
-  .flash--success {
-    background: linear-gradient(135deg, #d2ff52 0%, #91e842 100%); }
-  .flash--error {
-    background: linear-gradient(20deg, red 0%, #c80000 100%); }
-  .flash--info {
-    background: linear-gradient(35deg, #f1e767 0%, #feb645 100%); }
+  .flash-success {
+    background: green; }
+  .flash-error {
+    background: red; }
+  .flash-info {
+    background: yellow; }
   .flash p {
     margin: 0; }
 
@@ -688,6 +694,8 @@ p.created {
   .poll .poll-title .twitter-share-button {
     display: inline-block;
     margin-left: 30px; }
+  .poll .poll-title .total-votes {
+    font-weight: 700; }
 
 .poll form {
   display: -ms-grid;

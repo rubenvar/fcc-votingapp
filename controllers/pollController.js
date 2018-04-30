@@ -1,7 +1,14 @@
 const mongoose = require('mongoose');
 const Poll = mongoose.model('Poll');
 
-exports.homepage = (req, res) => {
+exports.getPolls = async (req, res, next) => {
+    // query db for all polls
+    const polls = await Poll.find().sort({ created: -1 }).populate('author');
+    res.locals.polls = polls;
+    next();
+};
+
+exports.renderHome = (req, res) => {
     const polls = res.locals.polls;
     res.render('home', { title: 'voted', polls });
 };
@@ -20,13 +27,6 @@ exports.createPoll = async (req, res) => {
     const poll = await (new Poll(req.body)).save();
     req.flash('success', `You successfully created <strong>${poll.name}</strong>. Share it with your friends!`);
     res.redirect(`/polls/${poll.slug}`);
-};
-
-exports.getPolls = async (req, res, next) => {
-    // query db for all polls
-    const polls = await Poll.find().sort({ created: -1 }).populate('author');
-    res.locals.polls = polls;
-    next();
 };
 
 exports.renderPolls = (req, res) => {
@@ -54,36 +54,22 @@ exports.renderPoll = (req, res) => {
         data.push(opt.votes);
     });
 
-    res.render('poll', { poll, title: poll.name, voted, labels, data, ip });
+    res.render('poll', { title: poll.name, poll, voted, ip, labels, data });
 };
 
 exports.countVote = async (req, res, next) => {
     const ip = res.locals.ip
     const find = { options: { $elemMatch: { _id: req.body.chosenId } } };
     const update = {
+        // add one to totals and to the option vote
         $inc: { total: 1, "options.$.votes": 1 },
+        // and store the user's ip
         $push: { ips: ip }
     };
     const options = { new: true, runValidators: true };
     const result = await Poll.findOneAndUpdate(find, update, options).exec();
-    console.log('voto añadido');
-    // TODO need to flash that vote is counted
-    // should add the poll _id to the users db
     res.json(result);
     next();
-};
-
-exports.getPollsByAuthor = async (req, res) => {
-    const slugId = req.params.id;
-    const polls = await Poll.find({ author: req.params.id }).populate('author');
-    res.render('user', { title: res.locals.accountUser[0].name, polls, slugId });
-};
-
-exports.deletePoll = async (req, res) => {
-    // delete the poll
-    const pollToDelete = await Poll.find({ _id: req.body.pollIdToDelete }).remove().exec();
-    console.log('deleted this poll ' + req.body.pollIdToDelete + '!');
-    res.json(pollToDelete);
 };
 
 exports.addNewOption = async (req, res) => {
@@ -99,4 +85,16 @@ exports.addNewOption = async (req, res) => {
         { new: true, runValidators: true }
     );
     res.redirect('back');
+};
+
+exports.getPollsByAuthor = async (req, res) => {
+    const slugId = req.params.id;
+    const polls = await Poll.find({ author: req.params.id }).populate('author');
+    res.render('user', { title: res.locals.accountUser[0].name, polls, slugId });
+};
+
+exports.deletePoll = async (req, res) => {
+    // delete the poll
+    const pollToDelete = await Poll.find({ _id: req.body.pollIdToDelete }).remove().exec();
+    res.json(pollToDelete);
 };

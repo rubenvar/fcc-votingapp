@@ -10,15 +10,17 @@ block content
     h2 #{title}'s polls:
     if user && user._id.equals(slugId)
         p <strong>Everyone</strong> can see your polls. <strong>Only you</strong> can see your polls' results or delete polls created by you
-        .polls
-            if polls.length === 0
-                p Nothing to show here yet
-            each poll in polls
-                +pollCardUser(poll)
+        if polls.length === 0
+                p.created Nothing to show here yet, 
+                    a(href="/new/poll") create a poll to manage it
+        else 
+            .polls
+                each poll in polls
+                    +pollCardUser(poll)
     else
         p These are all the polls created by this user
         .polls
             if polls.length === 0
-                p Nothing to show here yet
+                p.created Nothing to show here yet
             each poll in polls
                 +pollCard(poll)

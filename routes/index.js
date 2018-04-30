@@ -5,8 +5,7 @@ const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
 const { catchErrors } = require('../handlers/errorHandlers');
 
-// All the different routes
-router.get('/', catchErrors(pollController.getPolls), pollController.homepage);
+router.get('/', catchErrors(pollController.getPolls), pollController.renderHome);
 
 router.get('/new/poll', authController.isLoggedIn, pollController.addPoll);
 router.post('/new/poll', catchErrors(pollController.createPoll));
@@ -28,10 +27,10 @@ router.post('/polls/:slug/new',
     catchErrors(pollController.addNewOption)
 );
 
-router.get('/login', userController.loginForm);
+router.get('/login', userController.renderLogin);
 router.post('/login', authController.login);
 
-router.get('/register', userController.registerForm);
+router.get('/register', userController.renderRegister);
 router.post('/register',
     userController.validateRegister, // validate the data
     catchErrors(userController.registerUser), // register the user
@@ -41,7 +40,6 @@ router.post('/register',
 router.get('/logout', authController.logout);
 
 router.get('/user/:id',
-    // authController.checkLoggedIn,
     catchErrors(userController.findAccountUser),
     catchErrors(pollController.getPollsByAuthor)
 ); 

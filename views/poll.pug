@@ -5,9 +5,7 @@ block content
         .poll-title
             h1= title
             a(href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="Hey, I just voted in this poll:" data-hashtags="freeCodeCamp" data-show-count="false") Tweet
-            p.created Created by #[a(href=`/user/${poll.author._id}`) #{poll.author.name}] #{h.moment(poll.created).fromNow()}
-                if poll.total > 0
-                    | – <span class="total-votes">#{poll.total}</span> votes so far
+            p.created Created by #[a(href=`/user/${poll.author._id}`) #{poll.author.name}] #{h.moment(poll.created).fromNow()} – <span class="total-votes">#{poll.total}</span> votes so far
         if voted
             p 🤷‍♂️  You already voted on this poll
             p 👇 Check the results here
