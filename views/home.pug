@@ -1,7 +1,23 @@
 extends layout
 
+include mixins/_pollCard
+
 block content
-    h1 It works!
-    p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores tempore magni eaque, soluta quisquam fuga vero nisi laborum amet vel, voluptates ipsum et, consequuntur accusamus commodi excepturi quo aut obcaecati!
-    h2 Genial!
-    p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore quod, quia perspiciatis. Qui quae omnis quam in alias, ab! Dolorem cupiditate dolore nemo, tenetur. Sapiente quisquam beatae quidem, possimus labore.
+  .homepage
+    h1 Make your opinion count!
+    if user
+      p Welcome back, #{user.name}!
+    p Check all the available polls bellow and choose right now:
+    if !user
+      .pro-box
+        h3 PRO MODE:
+        h2 Create a free account
+        p ✍️ and start your own polls
+        p 📖 keep track of the results
+        p 💣 delete them
+        p 🚗 add new options to other user's polls!
+        a.button(href="/register") 🎢 Free sign in Now!
+    p Choose a poll here, and vote to see the result chart...
+    .polls
+      each poll in polls
+        +pollCard(poll)

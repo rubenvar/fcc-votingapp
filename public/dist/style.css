@@ -434,10 +434,10 @@ template {
   font-style: normal; }
 
 html {
-  font-size: 18px; }
+  font-size: 22px; }
 
 body {
-  font-size: 18px;
+  font-size: 22px;
   font-family: 'Comfortaa', cursive;
   color: #303030; }
 
@@ -472,8 +472,9 @@ h2 a {
     color: #303030; }
 
 p {
-  font-size: 18px;
-  margin: 0 0 20px 0; }
+  font-size: 22px;
+  margin: 0 0 20px 0;
+  line-height: 1.4; }
 
 nav {
   font-family: 'Comfortaa', cursive;
@@ -650,7 +651,7 @@ p.add-option {
       grid-template-rows: 1fr auto;
   grid-gap: 10px;
   border-top: 3px solid #ddd;
-  padding: 10px;
+  padding: 20px 10px 0;
   opacity: 1;
   transition: all 0.5s;
   box-shadow: 0 1px 2px #ddd; }
@@ -680,14 +681,13 @@ p.created {
   padding: 20px 10px 0; }
 
 .poll .poll-title {
-  padding-bottom: 40px;
-  position: relative; }
+  padding-bottom: 40px; }
   .poll .poll-title h1 {
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+    display: inline-block; }
   .poll .poll-title .twitter-share-button {
-    position: absolute !important;
-    right: 0;
-    top: 10px; }
+    display: inline-block;
+    margin-left: 30px; }
 
 .poll form {
   display: -ms-grid;
@@ -738,5 +738,18 @@ pre.error {
   background: white;
   line-height: 3;
   white-space: pre-line; }
+
+.homepage .pro-box {
+  background-color: #eee;
+  padding: 20px 20px 10px;
+  width: 60%;
+  margin: 30px auto 40px; }
+  .homepage .pro-box h3 {
+    color: #aaa;
+    margin: 0 0 10px; }
+  .homepage .pro-box h2 {
+    margin: 10px 0 20px; }
+  .homepage .pro-box p {
+    margin-left: 20px; }
 
 /*# sourceMappingURL=style.css.map*/

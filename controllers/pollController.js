@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Poll = mongoose.model('Poll');
 
 exports.homepage = (req, res) => {
-    // res.redirect('/polls');
-    res.render('home', { title: '4Poll' });
+    const polls = res.locals.polls;
+    res.render('home', { title: 'voted', polls });
 };
 
 exports.addPoll = (req, res) => {
@@ -22,11 +22,17 @@ exports.createPoll = async (req, res) => {
     res.redirect(`/polls/${poll.slug}`);
 };
 
-exports.getPolls = async (req, res) => {
+exports.getPolls = async (req, res, next) => {
     // query db for all polls
     const polls = await Poll.find().sort({ created: -1 }).populate('author');
-    res.render('polls', { title: 'All the Polls', polls });
+    res.locals.polls = polls;
+    next();
 };
+
+exports.renderPolls = (req, res) => {
+    const polls = res.locals.polls;
+    res.render('polls', { title: 'All the Polls', polls });
+}
 
 exports.getPollBySlug = async (req, res, next) => {
     const poll = await Poll.findOne({ slug: req.params.slug }).populate('author');

@@ -6,12 +6,12 @@ const authController = require('../controllers/authController');
 const { catchErrors } = require('../handlers/errorHandlers');
 
 // All the different routes
-router.get('/', pollController.homepage);
+router.get('/', catchErrors(pollController.getPolls), pollController.homepage);
 
 router.get('/new/poll', authController.isLoggedIn, pollController.addPoll);
 router.post('/new/poll', catchErrors(pollController.createPoll));
 
-router.get('/polls', catchErrors(pollController.getPolls));
+router.get('/polls', catchErrors(pollController.getPolls), pollController.renderPolls);
 
 router.get('/polls/:slug',
     catchErrors(pollController.getPollBySlug),
