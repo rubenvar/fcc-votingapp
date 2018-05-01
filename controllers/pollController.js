@@ -46,7 +46,7 @@ exports.getPollBySlug = async (req, res, next) => {
 exports.renderPoll = (req, res) => {
     const poll = res.locals.poll;
     const voted = res.locals.voted;
-    const ip = req.headers['x-forwarded-for'].split(',')[0] || req.connection.remoteAddress;;
+    const ip = req.headers['x-forwarded-for'] ? req.headers['x-forwarded-for'].split(',')[0] : req.connection.remoteAddress;
     
     const labels = [], data = [];
     poll.options.forEach(opt=> {

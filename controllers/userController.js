@@ -5,7 +5,7 @@ const promisify = require('es6-promisify');
 
 exports.checkVotedBefore = (req, res, next) => {
     let voted = false;
-    const ip = req.headers['x-forwarded-for'].split(',')[0] || req.connection.remoteAddress;
+    const ip = req.headers['x-forwarded-for'] ? req.headers['x-forwarded-for'].split(',')[0] : req.connection.remoteAddress;
     if (req.user) {
         voted = req.user.votes.some(vote => {
             return vote.toString() === res.locals.poll._id.toString();
@@ -21,7 +21,7 @@ exports.checkVotedBefore = (req, res, next) => {
 exports.checkVoted = async (req, res, next) => {
     const poll = await Poll.findOne({ options: { $elemMatch: { _id: req.body.chosenId } } });
     let voted;
-    const ip = req.headers['x-forwarded-for'].split(',')[0] || req.connection.remoteAddress;
+    const ip = req.headers['x-forwarded-for'] ? req.headers['x-forwarded-for'].split(',')[0] : req.connection.remoteAddress;
     res.locals.ip = ip;
 
     if (req.user) {

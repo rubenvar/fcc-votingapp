@@ -13,7 +13,7 @@ block content
             p.hide-voted Vote here:
             form.vote.hide-voted(method="POST" action=`/polls/${poll.slug}/vote/`)
                 each opt in poll.options
-                    button(type="submit" name="chosen" value=`${opt['_id']}`)
+                    button(type="submit" name="chosen" value=`${opt['_id']}` onClick="getChosenId(this.value)")
                         span #{opt['option']}
             if user
                 .new-option-cont.hide-voted
@@ -30,7 +30,11 @@ block content
         //- pre= h.dump(data)
         //- pre= h.dump(voted)
         //- pre= h.dump(ip)
-    
+    script.
+        let chosenIdFromButton;
+        function getChosenId(id) {
+            chosenIdFromButton = id;
+        }
     if voted
         script.
             labelString="#{labels}"

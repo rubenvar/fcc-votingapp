@@ -8208,7 +8208,6 @@ var _bling = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import Chart from 'chart.js';
 function ajaxVote(e) {
     var _this = this;
 
@@ -8216,11 +8215,10 @@ function ajaxVote(e) {
     var canvas = (0, _bling.$)('#results-chart').getContext('2d');
     var labels = [],
         data = [];
-    // check if the logged-in user already voted
-    // :( server side
     // get poll and option ids to store the vote
     var pollId = this.parentNode.dataset.pollid;
-    var chosenId = e.explicitOriginalTarget.value;
+    // const chosenId = e.explicitOriginalTarget.value; doesn't work in Chrome
+    var chosenId = chosenIdFromButton;
     // start the POST action
     _axios2.default.post(this.action, { chosenId: chosenId, pollId: pollId }).then(function (res) {
         // change the value in total
