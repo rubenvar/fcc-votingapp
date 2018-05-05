@@ -7,13 +7,16 @@ body {
 
 .content {
   padding: 40px 0; }
+  @media all and (max-width: 550px) {
+    .content {
+      padding-top: 0; } }
 
 .wrapper {
   max-width: 900px;
   margin: 0 auto; }
-  @media all and (max-width: 900px) {
+  @media all and (max-width: 920px) {
     .wrapper {
-      padding: 2rem; } }
+      margin: 0 30px; } }
 
 html {
   box-sizing: border-box; }
@@ -626,6 +629,8 @@ p.add-option {
       padding-bottom: 2px; }
     .nav-section-item-active:hover {
       padding-bottom: 5px; }
+  .nav #mobile-logo {
+    display: none; }
   .nav #menu {
     justify-self: start; }
   .nav #user {
@@ -643,12 +648,50 @@ p.add-option {
     line-height: 1;
     text-transform: none; }
 
+@media all and (max-width: 650px) {
+  .nav {
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr; }
+    .nav #logo {
+      display: none; }
+    .nav #mobile-logo {
+      display: block;
+      -ms-grid-column: span 2;
+          grid-column: span 2; } }
+
+@media all and (max-width: 550px) {
+  .nav {
+    -ms-flex-align: center;
+        align-items: center; }
+    .nav a {
+      text-align: center; }
+    .nav .avatar {
+      margin: 0 auto; }
+    .nav #menu, .nav #user {
+      justify-self: center; }
+    .nav .nav-section-item {
+      margin-bottom: 10px; }
+      .nav .nav-section-item:hover, .nav .nav-section-item-active {
+        border: none;
+        padding-bottom: 5px; }
+    .nav-section {
+      -ms-grid-columns: 1fr;
+          grid-template-columns: 1fr; } }
+
 .polls {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (1fr)[3];
       grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px; }
+  @media all and (max-width: 800px) {
+    .polls {
+      -ms-grid-columns: 1fr 1fr;
+          grid-template-columns: 1fr 1fr; } }
+  @media all and (max-width: 650px) {
+    .polls {
+      -ms-grid-columns: 1fr;
+          grid-template-columns: 1fr; } }
 
 .poll-card {
   display: -ms-grid;
@@ -759,5 +802,8 @@ pre.error {
     margin: 10px 0 20px; }
   .homepage .pro-box p {
     margin-left: 20px; }
+  @media all and (max-width: 700px) {
+    .homepage .pro-box {
+      width: 90%; } }
 
 /*# sourceMappingURL=style.css.map*/

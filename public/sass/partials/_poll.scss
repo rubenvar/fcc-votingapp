@@ -2,6 +2,12 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px;
+  @media all and (max-width: 800px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media all and (max-width: 650px) {
+    grid-template-columns: 1fr;
+  }
 }
 .poll-card {
   display: grid;
@@ -13,7 +19,6 @@
   transition: all 0.5s;
   box-shadow: 0 1px 2px $grey;
   h2 {
-    // text-align: center;
     margin-bottom: 10px;
     a {
       color: $black;

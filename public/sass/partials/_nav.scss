@@ -23,6 +23,9 @@
       }
     }
   }
+  #mobile-logo {
+    display: none;
+  }
   #menu {
     justify-self: start;
   }
@@ -42,69 +45,39 @@
     text-transform: none;
   }
 }
-
-// me falta meter las mías
-// @media all and (max-width: 1200px) {
-//   .nav {
-//     &__link {
-//       padding-left: 1rem;
-//       padding-right: 1rem;
-//       svg {
-//         width: 30px;
-//       }
-//       &--logo {
-//         svg {
-//           width: 100px;
-//         }
-//       }
-//     }
-//   }
-// }
-
-// @media all and (max-width: 900px) {
-//   .nav {
-//     flex-wrap:wrap;
-//     &__section {
-//       order: 1;
-//       &--search {
-//         border-top: 1px solid rgba(255,255,255,0.1);
-//         order: 2;
-//         width: 100%;
-//       }
-//     }
-//   }
-// }
-
-// @media all and (max-width: 650px) {
-//   .nav {
-//     &__section {
-//       width: 100%;
-//       &--user {
-//         order: -1;
-//         border-bottom: 1px solid rgba(255,255,255,0.1);
-//         .avatar {
-//           min-width: 20px;
-//           height: 20px;
-//         }
-//         svg {
-//           display: none;
-//         }
-//       }
-//     }
-//     &__item {
-//       width: 33.333333%;
-//     }
-//     &__link {
-//       width: 100%;
-//       svg {
-//         // width: 5px;
-//         max-width: 100%;
-//       }
-//       &--logo {
-//         svg {
-//           width:100%;
-//         }
-//       }
-//     }
-//   }
-// }
+@media all and (max-width: 650px) {
+  .nav {
+    grid-template-columns: 1fr 1fr;
+    #logo {
+      display: none;
+    }
+    #mobile-logo {
+      display: block;
+      grid-column: span 2;
+    }
+  }
+}
+@media all and (max-width: 550px) {
+  .nav {
+    align-items: center;
+    a {
+      text-align: center;
+    }
+    .avatar {
+      margin: 0 auto;
+    }
+    #menu, #user {
+      justify-self: center;
+    }
+    .nav-section-item {
+      margin-bottom: 10px;
+      &:hover, &-active {
+        border: none;
+        padding-bottom: 5px;
+      }
+    }
+    &-section {
+      grid-template-columns: 1fr;
+    }
+  }
+}
