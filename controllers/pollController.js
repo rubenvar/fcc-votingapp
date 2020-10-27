@@ -58,7 +58,7 @@ exports.renderPoll = (req, res) => {
 };
 
 exports.countVote = async (req, res, next) => {
-    const ip = res.locals.ip
+    const ip = res.locals.ip;
     const find = { options: { $elemMatch: { _id: req.body.chosenId } } };
     const update = {
         // add one to totals and to the option vote
