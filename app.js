@@ -6,9 +6,9 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const passport = require('passport');
-const promisify = require('es6-promisify');
+// const promisify = require('es6-promisify');
 const flash = require('connect-flash');
-const expressValidator = require('express-validator');
+// const expressValidator = require('express-validator');
 const routes = require('./routes/index');
 const helpers = require('./helpers');
 const errorHandlers = require('./handlers/errorHandlers');
@@ -18,10 +18,10 @@ require('./handlers/passport'); // specify the strategy for passport
 const app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views')); // this is the folder where we keep our pug files
-app.set('view engine', 'pug'); // we use the engine pug, mustache or EJS work great too
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
 
-// serves up static files from the public folder. Anything in public/ will just be served up as the file it is
+// sanything in public/ will just be served up as the file it is
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Takes the raw requests and turns them into usable properties on req.body
@@ -29,29 +29,32 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Exposes a bunch of methods for validating data. Used heavily on userController.validateRegister
-app.use(expressValidator());
+// app.use(expressValidator());
 
 // populates req.cookies with any cookies that came along with the request
 app.use(cookieParser());
 
-// Sessions allow us to store data on visitors from request to request
-// This keeps users logged in and allows us to send flash messages
-app.use(session({
-  secret: process.env.SECRET,
-  key: process.env.KEY,
-  resave: false,
-  saveUninitialized: false,
-  store: new MongoStore({ mongooseConnection: mongoose.connection })
-}));
+// Sessions: store data on visitors from req to req: keeps users logged in + allows flash messages
+app.use(
+  session({
+    secret: process.env.SECRET,
+    key: process.env.KEY,
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection,
+    }),
+  })
+);
 
-// // Passport JS is what we use to handle our logins
+// Passport JS to handle logins
 app.use(passport.initialize());
 app.use(passport.session());
 
-// // The flash middleware let's us use req.flash('error', 'Shit!'), which will then pass that message to the next page the user requests
+// flash middleware: use req.flash('error', 'Shit!'), will pass that message to the next page
 app.use(flash());
 
-// pass variables to our templates + all requests
+// pass variables to templates + all requests
 app.use((req, res, next) => {
   res.locals.h = helpers; // some misc helper functions
   res.locals.flashes = req.flash(); // the flash messages
@@ -61,21 +64,21 @@ app.use((req, res, next) => {
 });
 
 // promisify some callback based APIs
-app.use((req, res, next) => {
-  req.login = promisify(req.login, req);
-  next();
-});
+// app.use((req, res, next) => {
+//   req.login = promisify(req.login, req);
+//   next();
+// });
 
-// After allllll that above middleware, we finally handle our own routes!
+// After allllll that above middleware, handle routes!
 app.use('/', routes);
 
-// If that above routes didnt work, we 404 them and forward to error handler
+// If that above routes didnt work, 404 + forward to error handler
 app.use(errorHandlers.notFound);
 
-// One of our error handlers will see if these errors are just validation errors
+// validation errors
 app.use(errorHandlers.flashValidationErrors);
 
-// Otherwise this was a really bad error we didn't expect! Shoot eh
+// really bad error
 if (app.get('env') === 'development') {
   /* Development Error Handler - Prints stack trace */
   app.use(errorHandlers.developmentErrors);
@@ -84,5 +87,5 @@ if (app.get('env') === 'development') {
 // production error handler
 app.use(errorHandlers.productionErrors);
 
-// done! we export it so we can start the site in start.js
+// done! export it to start.js
 module.exports = app;

@@ -3,7 +3,7 @@ mixin pollCard(poll = {})
     .poll-title
       h2
         a(href=`/polls/${poll.slug}`) #{poll.name}
-      p.created Created by #[a(href=`/user/${poll.author._id}`) #{poll.author.name}] #{h.moment(poll.created).fromNow()}
+      p.created Created by #[a(href=`/user/${poll.author._id}`) #{poll.author.name}] #{h.toNow(poll.created)} ago
     .poll-details
       //- p Available options:
       ul
