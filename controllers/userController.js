@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 
 const User = mongoose.model('User');
 const Poll = mongoose.model('Poll');
-const promisify = require('es6-promisify');
-const body = require('express-validator');
+const { body, validationResult } = require('express-validator');
 
 exports.checkVotedBefore = (req, res, next) => {
   let voted = false;
@@ -68,31 +67,36 @@ exports.renderRegister = (req, res) => {
 };
 
 // sanitizing with expressValidator:
-exports.validateRegister = (req, res, next) => {
+exports.validateRegister = [
   // first state the checks
-  body('name'); // check the name
-  body('name', 'You must supply a name').notEmpty(); // check that name is supplied
-  body('email', 'That Email is not valid').isEmail(); // check that email is correct
+  // body('name'); // check the name
+  body('name', 'You must supply a name').notEmpty(),
+  body('email', 'You must supply an email').notEmpty(),
+  body('email', 'That Email is not valid').isEmail(),
   body('email').normalizeEmail({
     // normalize email, removing ., +, cases, etc.
     remove_dots: false,
     remove_exension: false,
     gmail_remove_subaddress: false,
-  });
-  body('password', 'Password cannot be Blank!').notEmpty(); // check that there is a password
-  body('confirm-password', 'Confirmed Password cannot be Blank!').notEmpty(); // check that there is a confirm password
-  body('confirm-password', 'Oops! Your passwords do not match').equals(
-    req.body.password
-  ); // check that both passwords are equal
+  }),
+  body('password', 'Password cannot be Blank!').notEmpty(),
+  body('confirm-password', 'Confirmed Password cannot be Blank!').notEmpty(),
+  body('confirm-password').custom((value, { req }) => {
+    if (value !== req.body.password)
+      throw new Error('Your passwords do not match');
+    return value;
+  }),
+];
 
+exports.throwRegisterError = (req, res, next) => {
   // call all the methods and get the errors if there are
-  const errors = req.validationErrors();
+  const errors = validationResult(req);
 
   // and manage the errors
-  if (errors) {
+  if (!errors.isEmpty()) {
     req.flash(
       'error',
-      errors.map(err => err.msg)
+      errors.array().map(err => err.msg)
     );
     res.render('register', {
       title: 'Register',
@@ -107,10 +111,8 @@ exports.validateRegister = (req, res, next) => {
 exports.registerUser = async (req, res, next) => {
   // create the User and the register it:
   const user = new User({ email: req.body.email, name: req.body.name });
-  // the passport "register" method doesn't have promises, so promisify it and we can use async/await
-  const register = promisify(User.register, User);
   // and await the register just created
-  await register(user, req.body.password);
+  await User.register(user, req.body.password);
   next();
 };
 

@@ -6,9 +6,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const passport = require('passport');
-// const promisify = require('es6-promisify');
 const flash = require('connect-flash');
-// const expressValidator = require('express-validator');
 const routes = require('./routes/index');
 const helpers = require('./helpers');
 const errorHandlers = require('./handlers/errorHandlers');
@@ -68,12 +66,6 @@ app.use((req, res, next) => {
   res.locals.currentPath = req.path; // the path
   next();
 });
-
-// promisify some callback based APIs
-// app.use((req, res, next) => {
-//   req.login = promisify(req.login, req);
-//   next();
-// });
 
 // After allllll that above middleware, handle routes!
 app.use('/', routes);
