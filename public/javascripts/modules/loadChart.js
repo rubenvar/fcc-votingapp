@@ -1,7 +1,9 @@
-import { Chart } from 'chart.js';
+import { Chart, PieController, ArcElement, Legend, CategoryScale } from 'chart.js';
+
+Chart.register(PieController, ArcElement, Legend, CategoryScale);
 
 function loadChart(canvas, labels, data) {
-    const myChart = new Chart(canvas, {
+    new Chart(canvas, {
         type: 'pie',
         data: {
             labels,
