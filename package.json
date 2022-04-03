@@ -2,9 +2,6 @@
   "name": "fcc-votingapp",
   "version": "2.0.0",
   "private": true,
-  "engines": {
-    "node": ">= 7.6.0"
-  },
   "browserslist": [
     "last 3 versions"
   ],
