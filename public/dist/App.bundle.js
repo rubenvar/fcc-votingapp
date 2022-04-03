@@ -15292,9 +15292,10 @@ const registerables = [
 
 ;// CONCATENATED MODULE: ./public/javascripts/modules/loadChart.js
 
+Chart.register(PieController, ArcElement, plugin_legend, CategoryScale);
 
 function loadChart(canvas, labels, data) {
-  var myChart = new Chart(canvas, {
+  new Chart(canvas, {
     type: 'pie',
     data: {
       labels: labels,
