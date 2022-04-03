@@ -13,7 +13,7 @@
     "watch": "nodemon ./start.js --ignore public/",
     "dev": "concurrently \"npm run watch\" \"npm run assets\" --names \"💻,📦\" --prefix name",
     "assets": "webpack -w --mode=development",
-    "build": "webpack"
+    "build": "webpack --node-env=production --mode=production"
   },
   "dependencies": {
     "axios": "^0.26.1",
