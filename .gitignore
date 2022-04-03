@@ -5,3 +5,5 @@ node_modules/
 haters/
 .env
 .eslintrc
+**/dev/
+DOCS.md

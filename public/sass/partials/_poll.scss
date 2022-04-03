@@ -1,3 +1,4 @@
+@use 'variables';
 .polls {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -13,22 +14,22 @@
   display: grid;
   grid-template-rows: 1fr auto;
   grid-gap: 10px;
-  border-top: 3px solid $grey;
+  border-top: 3px solid variables.$grey;
   padding: 20px 10px 0;
   opacity: 1;
   transition: all 0.5s;
-  box-shadow: 0 1px 2px $grey;
+  box-shadow: 0 1px 2px variables.$grey;
   h2 {
     margin-bottom: 10px;
     a {
-      color: $black;
+      color: variables.$black;
       &:hover {
-        color: $purple;
+        color: variables.$purple;
       }
     }
   }
   &:hover {
-    border-color: $purple;
+    border-color: variables.$purple;
   }
   &.hidden {
     opacity: 0;
@@ -78,13 +79,13 @@ p.created {
     margin: 40px 0;
     button {
       margin: 0;
-      background-color: $purple;
-      border: 3px solid $purple;
+      background-color: variables.$purple;
+      border: 3px solid variables.$purple;
       padding: 15px;
-      color: $white;
+      color: variables.$white;
       &:hover {
-        background-color: $white;
-        color: $purple;
+        background-color: variables.$white;
+        color: variables.$purple;
         cursor: pointer;
       }
     }
@@ -92,7 +93,7 @@ p.created {
   .results {
     .result {
       display: inline-block;
-      border: 1px solid $white;
+      border: 1px solid variables.$white;
       background-color: rgba(130, 124, 210, 0.3);
       text-align: center;
       padding: 20px;

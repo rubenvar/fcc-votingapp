@@ -1,3 +1,4 @@
+@use 'variables';
 .nav {
   display: grid;
   list-style: none;
@@ -5,15 +6,15 @@
   padding: 0;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
-  background: $white;
+  background: variables.$white;
   &-section {
     display: grid;
     grid-template-columns: auto auto;
     align-items: stretch;
     &-item {
       &:hover, &-active {
-        border-bottom: 3px solid $purple;
-        color: $purple;
+        border-bottom: 3px solid variables.$purple;
+        color: variables.$purple;
       }
       &:hover {
         padding-bottom: 2px;

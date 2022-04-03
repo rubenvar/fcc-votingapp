@@ -1,11 +1,13 @@
+@use 'variables';
+
 input, textarea {
   width: 100%;
   padding: 10px;
   margin-bottom: 20px;
-  border: 1px solid $grey;
+  border: 1px solid variables.$grey;
   &:focus,
   &:active {
-    border-color: $purple;
+    border-color: variables.$purple;
   }
 }
 
@@ -39,15 +41,15 @@ input[type="submit"] {
   line-height: 1.2;
   box-shadow: none;
   border: none;
-  background-color: $purple;
-  color: $white;
+  background-color: variables.$purple;
+  color: variables.$white;
   cursor: pointer;
   p {
     margin: 0;
   }
   &.sec{
-    background-color: $grey;
-    color: $black;
+    background-color: variables.$grey;
+    color: variables.$black;
     &:hover {
       background-color: #eee
     }
@@ -65,6 +67,6 @@ a.button {
 p.add-option {
   cursor: pointer;
   &:hover {
-    color: $purple;
+    color: variables.$purple;
   }
 }

@@ -1,9 +1,11 @@
+@use 'variables';
+
 html {
   font-size: 18px;
 }
 
 body {
-  background: $white;
+  background: variables.$white;
   min-height: 100vh;
 }
 

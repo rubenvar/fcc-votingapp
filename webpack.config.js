@@ -1,8 +1,10 @@
+require('dotenv').config();
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+
+const isDevMode = process.env.NODE_ENV === 'development';
 
 // JavaScript rule: what to do with .js files
 const javascript = {
@@ -14,44 +16,24 @@ const javascript = {
   },
 };
 
-// postCSS loader, fed into the next loader
-const postcss = {
-  loader: 'postcss-loader',
-  options: {
-    postcssOptions: {
-      plugins: [autoprefixer()],
-    },
-  },
-};
-
 // sass/css loader: handles require('something.scss')
 const styles = {
   test: /\.(scss)$/,
   // here is how to use the MiniCssExtractPlugin
   use: [
+    isDevMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+    'css-loader',
     {
-      loader: MiniCssExtractPlugin.loader,
+      loader: 'postcss-loader',
       options: {
-        hmr: process.env.NODE_ENV === 'development',
+        postcssOptions: {
+          plugins: [autoprefixer()],
+        },
       },
     },
-    'css-loader?sourceMap',
-    postcss,
-    'sass-loader?sourceMap',
+    'sass-loader',
   ],
 };
-
-// use plugins
-const uglifyJS = new UglifyJsPlugin({
-  cache: true,
-  parallel: true,
-  uglifyOptions: {
-    compress: true,
-    ecma: 6,
-    mangle: true,
-  },
-  sourceMap: true,
-});
 
 // put it all together
 const config = {
@@ -63,17 +45,20 @@ const config = {
   devtool: 'source-map',
   // kick everything out to a file
   output: {
-    path: path.resolve(__dirname, 'public', 'dist'),
+    path: path.resolve(__dirname, 'public', isDevMode ? 'dev' : 'dist'),
     // use substitutions in file name (name will be `App`, name of the entry)
     filename: '[name].bundle.js',
   },
-  // optimization key for the uglify plugin
-  optimization: {
-    minimizer: [uglifyJS, new OptimizeCSSAssetsPlugin({})],
-  },
+  // target: ['web', 'es5'],
+  target: 'web',
   // pass the rules for JS and styles
   module: {
     rules: [javascript, styles],
+  },
+  // optimization key for the uglify plugin
+  optimization: {
+    minimize: true,
+    minimizer: [new CssMinimizerPlugin()],
   },
   // pass an array of plugins
   plugins: [
@@ -83,8 +68,5 @@ const config = {
     }),
   ],
 };
-
-// shhhhhhh
-process.noDeprecation = true;
 
 module.exports = config;

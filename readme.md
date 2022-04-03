@@ -2,7 +2,7 @@
 
 The Voting App project for the freeCodeCamp Backend Development Module
 
-## These are User Stories the app should fulfill:
+## These are User Stories the app should fulfill
 
 As an authenticated user,
 
@@ -13,7 +13,7 @@ As an authenticated user,
 - I can create a poll with any number of possible items.
 - if I don't like the options on a poll, I can create a new option.
 
-As an unauthenticated or authenticated user, 
+As an unauthenticated or authenticated user,
 
 - I can see and vote on everyone's polls.
 - I can see the results of polls in chart form.
@@ -30,4 +30,4 @@ This is [the live preview of the app](https://alive-partner.glitch.me/).
 
 The Database is [MongoDB](https://www.mongodb.com/) with [Mongoose](http://mongoosejs.com/)
 
-It runs on [Node](https://nodejs.org/) of course, and the Front-End is coded in [pug](https://pugjs.org) and more or less [Sass](https://sass-lang.com) 
+It runs on [Node](https://nodejs.org/) of course, and the Front-End is coded in [pug](https://pugjs.org) and more or less [Sass](https://sass-lang.com)

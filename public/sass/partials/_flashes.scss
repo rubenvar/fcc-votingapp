@@ -1,3 +1,5 @@
+@use 'variables';
+
 @keyframes slideIn {
   0% {
     transform: translateX(-10px);
@@ -34,17 +36,17 @@
     background: none;
     border:0;
     &:hover {
-      color: $yellow;
+      color: variables.$yellow;
     }
   }
   button {
     padding: 0;
-    color: $purple;
-    background-color: $white;
+    color: variables.$purple;
+    background-color: variables.$white;
     margin: 0;
     &:hover {
-      background-color: $white;
-      color: $black;
+      background-color: variables.$white;
+      color: variables.$black;
     }
   }
   &:after {

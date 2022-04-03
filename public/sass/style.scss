@@ -1,10 +1,9 @@
-@import 'partials/variables'; // ok
-@import 'partials/layout'; // ok
-@import 'partials/normalize'; // ok
-@import 'partials/typography'; // ok
-@import 'partials/forms'; // ok
-@import 'partials/flashes'; // ok
-@import 'partials/nav'; // ok
-@import 'partials/poll'; //rv
-@import 'partials/pagination'; // cambiar cuando lo haga
-@import 'partials/helpers'; // ok
+@use 'partials/layout'; // ok
+@use 'partials/normalize'; // ok
+@use 'partials/typography'; // ok
+@use 'partials/forms'; // ok
+@use 'partials/flashes'; // ok
+@use 'partials/nav'; // ok
+@use 'partials/poll'; //rv
+@use 'partials/pagination'; // cambiar cuando lo haga
+@use 'partials/helpers'; // ok

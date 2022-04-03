@@ -1,8 +1,10 @@
-@font-face {
-  font-family: 'Comfortaa', cursive;
-  font-weight: normal;
-  font-style: normal;
-}
+@use 'variables';
+
+// @font-face {
+//   font-family: 'Comfortaa', cursive;
+//   font-weight: normal;
+//   font-style: normal;
+// }
 
 html {
   font-size: 22px;
@@ -11,10 +13,10 @@ html {
 body {
   font-size: 22px;
   font-family: 'Comfortaa', cursive;
-  color: $black;
+  color: variables.$black;
 }
 
-h1, h2, h3, h4, h5, h6, {
+h1, h2, h3, h4, h5, h6 {
   font-size: 30px;
   font-family: 'Comfortaa', cursive;
   font-weight: 700;
@@ -39,14 +41,14 @@ h3 {
 
 a {
   text-decoration: none;
-  color: $black;
+  color: variables.$black;
 }
 
 p a,
 h2 a {
-  color: $purple;
+  color: variables.$purple;
   &:hover {
-    color: $black;
+    color: variables.$black;
   }
 }
 

@@ -1,4 +1,4 @@
-import Chart from 'chart.js';
+import { Chart } from 'chart.js';
 
 function loadChart(canvas, labels, data) {
     const myChart = new Chart(canvas, {

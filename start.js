@@ -2,13 +2,21 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 
 // connect to db and handle bad connections
-mongoose.connect(process.env.DATABASE, {
-  useCreateIndex: true,
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-});
-mongoose.Promise = global.Promise; // Tell Mongoose to use ES6 promises
+exports.clientP = mongoose.connect(process.env.DATABASE, {
+  // useCreateIndex: true,
+  // useNewUrlParser: true,
+  // useUnifiedTopology: true,
+  // useFindAndModify: false,
+}).then(m => {
+  console.log('Connected to DB 👍');
+  return m.connection.getClient();
+}).catch(
+  err => {
+    console.log('Error connecting to DB 🙅‍♀️', err);
+    process.exit(1);
+  }
+);
+
 mongoose.connection.on('error', err => {
   console.error(`🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}`);
 });

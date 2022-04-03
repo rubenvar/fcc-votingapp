@@ -2,7 +2,8 @@ doctype html
 html
   head
     title= `${title} | ${h.siteName}`
-    link(rel='stylesheet', href='/dist/style.css')
+    //- link(rel='stylesheet' href='/dist/style.css')
+    //- link(rel='stylesheet' href='/dist/style.css')
     link(rel="shortcut icon" type="image/png" href="/images/icons/d.png")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     link(href="https://fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet")
@@ -43,11 +44,11 @@ html
                   .flash(class=`flash-${category}`)
                     p.flash-text!= message
                     button.flash-remove(onClick="this.parentElement.remove()") &times;
-    
+
     .content
       .wrapper
         block content
 
     block scripts
-      script(src="/dist/App.bundle.js")
+      script(src=`${isDev ? '/dev/App.bundle.js' : '/dist/App.bundle.js'}`)
       script(async src="https://platform.twitter.com/widgets.js" charset="utf-8")
