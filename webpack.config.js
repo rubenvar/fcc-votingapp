@@ -5,7 +5,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const isDevMode = process.env.NODE_ENV === 'development';
-console.log(isDevMode);
 
 // JavaScript rule: what to do with .js files
 const javascript = {
