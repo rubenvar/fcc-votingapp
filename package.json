@@ -28,7 +28,7 @@
     "express-validator": "^6.14.0",
     "md5": "^2.3.0",
     "mongodb": "^4.4.1",
-    "mongoose": "^6.2.9",
+    "mongoose": "^6.4.6",
     "mongoose-mongodb-errors": "^0.0.2",
     "passport": "^0.5.2",
     "passport-local-mongoose": "^7.0.0",
